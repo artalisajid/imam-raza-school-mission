@@ -64,3 +64,9 @@ Do not process charity donations without the required legal and payment permissi
 - Additional tests: end-to-end login/billing/refund, accessibility, finance audits and real release signing.
 
 See `ARCHITECTURE.md`, `GOOGLE_ACCOUNT_SETUP.md`, `LAUNCH_GATES.md` and `QA.md`.
+
+
+### Google Play closed-testing handoff (14 October 2026)
+The Play Console app and **Closed testing – Alpha** track exist. Pakistan is selected; a closed-test release draft (version 4 / 0.3.0-internal) exists. The native app has been tested with Google sign-in on Pixel 7 Pro. The English Store listing, icon, feature graphic and genuine Pixel screenshots are prepared; Google Play previously indicated the listing was ready to send for review.
+
+The signed AAB in `app/build/outputs/bundle/release/app-release.aab` has been rebuilt using the **exact Play-registered original upload certificate** (SHA-1 `EA:30:F5:AA:AC:BF:47:04:EE:CB:67:5A:2E:20:F0:6A:EA:A6:3C:30`). It passed Gradle and signature verification. This corrected AAB has **not yet been uploaded**: Google Play Console currently requests a fresh owner login. The earlier rejected AAB was signed with a different key. See `PLAY_CLOSED_TESTING_STATUS.md` for precise next steps, `play-store-assets/` for the artwork, and `release-assets/` for the ZIP. No public production rollout or live payments have been enabled.

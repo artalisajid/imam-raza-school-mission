@@ -72,3 +72,12 @@
 - Release AAB generated locally (11 MB), but jarsigner reports `jar is unsigned`. Do **not** upload this artifact as a Play release until secured signing has been completed and verified.
 - Signing key was prepared outside the Git repo. Its password must not be exposed in chat/GitHub. Sign the bundle through a locally secured build environment, verify the signed AAB with jarsigner, then upload to Play's Internal testing track.
 - Outstanding release gating: signed Play AAB / uploaded billing-enabled version, three one-time Play products/prices, Play publisher API service account, sandbox purchase/refund QA, legal fundraising/merchant clearance, public Data Safety and support disclosures.
+
+## 14 October 2026 — Closed-test release signing correction
+- Play Console initially refused version-code-4 AAB because its SHA-1 was `55:55:06:BF:7C:51:CD:76:B6:86:E9:F8:97:D9:CA:9C:B9:43:CE:3F`, differing from the registered upload certificate.
+- Located pre-existing proper keystore `~/.android/keystores/imam-raza-play-upload-2026.jks`, accessed its password only within the Mac process via Keychain and checked the Play-registered fingerprint.
+- Rebuilt AAB successfully; four existing unit tests passed. `jarsigner -verify` returned `jar verified.` and `keytool -printcert -jarfile` returned required SHA-1 `EA:30:F5:AA:AC:BF:47:04:EE:CB:67:5A:2E:20:F0:6A:EA:A6:3C:30`.
+- Corrected release AAB SHA-256: `49ba9cec33969f6d68e2a91cee01150e430a55a404e17545db646393b4d7ebff`.
+- **No confirmed successful upload of corrected AAB yet**: Chrome Play Console redirected to a Google owner sign-in page when retried. The track is a draft, not live.
+- Play Console previously displayed the default English listing with text, icon, feature graphic and 7 of 8 screenshot slots filled. Store asset dimensions verified.
+- Neither public sales nor a closed-test distribution is active.
