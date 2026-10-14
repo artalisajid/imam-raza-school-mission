@@ -1,0 +1,12 @@
+# Build output / local secrets
+.gradle/
+build/
+**/build/
+.idea/
+local.properties
+*.jks
+*.keystore
+.env
+.env.*
+!*.example
+.DS_Store
