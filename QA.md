@@ -1,40 +1,45 @@
-# Quality Assurance & Release Status
+# QA — Android v0.2.0-dev
 
-**Audit date:** 2026-10-14
-**Repository:** https://github.com/artalisajid/imam-raza-school-mission
-**APK:** GitHub pre-release v0.1.0-preview
+**Verified 14 October 2026, Asia/Karachi.**
 
-## Verified on Sajids-MacBook-Air
-| Verification | Result |
-|---|---|
-| Kotlin / Android Gradle assembleDebug | PASS |
-| Four JUnit tests | PASS (4/4) |
-| Android Lint | PASS (0 errors, 11 warnings) |
-| Target SDK configuration | 36 |
-| App ID | org.imamraza.schoolmission |
-| GitHub repository push | PASS |
-| GitHub Pages privacy URL | PASS — HTTP 200 |
-| Google Play payments | NOT ENABLED; checkout is explicitly blocked |
-| Google sign-in | NOT ENABLED; provider credentials absent |
-| Hosted Supabase project | CREATED — ap-south-1, connected to Android build |
-| Public Supabase API milestone query | PASS — HTTP 200 |
-| Hosted database security advisors | No WARN/ERROR; four INFO findings for intentionally private tables without client policies |
-| Physical Pixel install, accessibility and gesture QA | NOT RUN — ADB found no connected Pixel |
-| Emulator visual QA | NOT RUN — emulator installation requires a new Android SDK license acceptance |
-| Play Console production approval | NOT SUBMITTED |
-| Legal fundraising authorization | NOT VERIFIED |
+## Build and static tests
+- `./gradlew :app:assembleDebug :app:testDebugUnitTest :app:lintDebug`: PASS.
+- 4 out of 4 unit tests: PASS.
+- Android Lint: zero errors. Non-blocking warnings remain.
+- Target SDK 36, app ID `org.imamraza.schoolmission`, versionCode 2, versionName `0.2.0-dev`.
 
-## Checklist before publication
-- Configure and test Supabase ownership, Auth, Postgres RLS and file access.
-- Set up private account deletion request route and privacy contact before accounts.
-- Complete original sticker content and licensing; current artwork is only an in-app preview.
-- Create Play Console one-time products and enable Billing with server verification.
-- Validate refund, pending-payment and purchase-restoration behavior end to end.
-- Verify legal structure, business/fundraising claims, Google merchant eligibility, finance allocation policy and independent controls.
-- Get actual Pixel/emulator access. Test font scaling, TalkBack, small screens, network failures, RTL, navigation, purchase edge cases, and screen orientation.
-- Remove or address 11 lint warnings where feasible.
-- Configure an organization-owned upload key; do not use the debug keystore for production.
-- Update Play Store Data Safety, privacy, disclosures and published policy after any new processing goes live.
+## Supabase production boundary checks
+- Feature flags (anonymous GET): HTTP 200; `commerce_enabled=false`, `google_signin_enabled=false`.
+- Anonymous purchase records: no records visible.
+- Private financial ledger: HTTP 401.
+- `verify-play-purchase` without JWT: HTTP 401.
+- `delete-account` without JWT: HTTP 401.
+- All three private pack downloads without JWT: HTTP 400 (not available).
+- 3 private ZIP files uploaded: `little_learners` (12 PNG), `seeds_of_knowledge` (20 PNG), `bright_minds` (30 PNG).
+- Temporary content upload endpoint disabled; one-time credential destroyed.
+- Supabase Security Advisor: no warning/error findings; four informational notices for tables intentionally hidden from clients.
 
-## Safety defaults
-The preview does not collect donations or process Play payments, does not create supporter accounts, and does not declare fictional milestones or financial balances.
+## Physical device smoke test
+**Phone:** Pixel 7 Pro (`cheetah`), Android 17 reported by `adb`, connected wirelessly.
+
+- Installed version 0.2.0-dev, versionCode 2: PASS.
+- Launches MainActivity: PASS.
+- Home displays school mission and primary Support CTA: PASS.
+- Support tab displays sticker catalog: PASS.
+- Little Learners product detail opens and shows 12 items: PASS.
+- School tab displays Nursery–Class 7 educational information: PASS.
+- Journey tab displays legal registration as first milestone with unverified funds state: PASS.
+- Account tab displays guest supporter, Google-login-disabled state and privacy entry: PASS.
+- MainActivity remains resumed and no FATAL EXCEPTION found in checked logcat window: PASS.
+
+**Not covered:** Google sign-in end to end, purchase sandbox, refunds, accessibility with TalkBack, large-text/RTL layout, download as an authenticated purchaser, deletion as an authenticated user, exhaustive navigation, performance profiling or release signing.
+
+## External release blockers
+1. Create or connect an owned Google Cloud project; configure Google OAuth web client, secret and redirect.
+2. Register/verify Play Console operator, app and one-time products; link Android Publisher API permissions and secret.
+3. Configure Real-time Developer Notifications/voided purchase reconciliation, perform Play purchase/chargeback tests.
+4. Obtain project-specific Pakistani legal advice and applicable organizational/fundraising/payment authorizations.
+5. Establish public support contact and update Privacy Policy/Data Safety to match enabled features.
+6. End-to-end QA with a real logged-in test supporter and licensed Play testing environment.
+
+**Both feature flags remain OFF. No checkout or login is active and no charitable funds are collected.**

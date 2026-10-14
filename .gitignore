@@ -11,3 +11,5 @@ local.properties
 !*.example
 .DS_Store
 .venv/
+assets/paid-content/
+.setup-asset-upload-token

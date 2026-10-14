@@ -180,7 +180,7 @@ import androidx.compose.ui.unit.*
         }
     }
 }
-@Composable fun PackDetailScreen(pack:StickerPack,onBack:()->Unit,onBuy:()->Unit) {
+@Composable fun PackDetailScreen(pack:StickerPack,onBack:()->Unit,onBuy:()->Unit,price:String,enabled:Boolean) {
     ScrollPage {
         TextButton(onClick=onBack){ Icon(Icons.Default.ArrowBack,null);Spacer(Modifier.width(6.dp));Text("All collections",color=Forest)}
         StickerArt(pack,Modifier.fillMaxWidth().height(226.dp),large=true)
@@ -196,8 +196,9 @@ import androidx.compose.ui.unit.*
             Text("Each pack is a one-time digital purchase. The same permanent pack cannot be purchased again; new collections may be released later.",color=Muted,fontSize=13.sp,lineHeight=20.sp)
             Text("Actual local pricing will be supplied by Google Play when checkout is configured.",color=Muted,fontSize=13.sp,lineHeight=20.sp)
         }
-        GoldButton("Check Google Play availability",onBuy)
-        Text("Checkout is unavailable until live Play Billing, product registration and server verification are configured. No payment can be taken in this build.",color=Muted,fontSize=11.sp,lineHeight=16.sp)
+        Text("Google Play price: "+price,color=Forest,fontWeight=FontWeight.Bold)
+        GoldButton(if(enabled) "Buy with Google Play" else "Checkout not yet available",onBuy,enabled=enabled)
+        Text(if(enabled) "Your permanent digital collection will be unlocked only after Google verifies payment." else "Purchase is disabled until Google sign-in, Play products and lawful payment settings are activated.",color=Muted,fontSize=11.sp,lineHeight=16.sp)
     }
 }
 
