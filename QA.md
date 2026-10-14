@@ -59,3 +59,16 @@
 - Security Advisor: no ERROR/WARN findings; INFO for four deliberately private tables.
 - Live configuration flags remain false; real checkout and Google OAuth still require signed-in Google Cloud / Play developer console and account approval.
 - Checkout architecture remains exclusively native Google Play Billing; no external checkout.
+
+## 14 October 2026 — v0.3.0 internal Google OAuth acceptance
+- Google Cloud OAuth Web client created for the dedicated `imam-raza-school-mission` project, callback `https://zvtvpldmapcelkizrxtg.supabase.co/auth/v1/callback`.
+- Google provider enabled in Supabase Studio; callback and `org.imamraza.schoolmission://login-callback` Android deep link allowed.
+- Google Auth Platform audience: External / Testing. One authorized adult test account added (personal email redacted here).
+- Supabase operator flag: `google_signin_enabled=true`; `commerce_enabled=false`.
+- Pixel 7 Pro: debug build versionCode 4 / v0.3.0-internal installed. Google sign-in selected an allowed test Google account, consent returned to native app, and Account screen displayed **Signed in** with Sign out. No fatal crash in checked log window.
+- Supabase verification: `auth.users=1`, `profiles=1`, `purchases=0`, `entitlements=0`.
+- Build and 4 unit tests passed. Supabase Google endpoint returned HTTP 302 to Google sign-in.
+- Play Console: the app exists under Artistic Sajid, but **one-time product setup is blocked until a billing-enabled signed Play upload**.
+- Release AAB generated locally (11 MB), but jarsigner reports `jar is unsigned`. Do **not** upload this artifact as a Play release until secured signing has been completed and verified.
+- Signing key was prepared outside the Git repo. Its password must not be exposed in chat/GitHub. Sign the bundle through a locally secured build environment, verify the signed AAB with jarsigner, then upload to Play's Internal testing track.
+- Outstanding release gating: signed Play AAB / uploaded billing-enabled version, three one-time Play products/prices, Play publisher API service account, sandbox purchase/refund QA, legal fundraising/merchant clearance, public Data Safety and support disclosures.
