@@ -7,7 +7,10 @@ A native Android application for adult supporters of a **proposed** affordable S
 **Development preview; not yet a production release.** Home, School, Support, Journey and Account UI are implemented in Jetpack Compose. Legal and payment features are intentionally disabled until required authorizations and external configuration exist.
 
 ### Priority experience
-Home → **Explore Stickers & Support** → Sticker Collections → Product Details → [Google Play purchases after setup] → Owned Stickers → Verified Journey.
+Home → **Explore Stickers & Support** → Sticker Collections → Product Details → **Google Play Billing in-app purchase only** (after account and legal approvals) → Verified Owned Stickers → Verified Journey.
+
+### Mandatory checkout policy
+**The sole monetary checkout in the Android app is Google Play Billing for genuine digital sticker collections.** The app must not redirect a purchase to the website, bank transfer, Stripe, PayPal, WhatsApp, or any other payment processor. Google Play provides the live local price and displays its native purchase sheet; the secure Supabase verification function grants ownership only after Google's purchase confirmation. The public GitHub Pages website hosts privacy, account deletion, and mission information, and must not collect payments. There is no direct-donation checkout. A published funding mission does not waive legal, merchant or Google Play review requirements.
 
 ### Tech stack
 - Android: Kotlin, Jetpack Compose, Material 3, target SDK 36.
