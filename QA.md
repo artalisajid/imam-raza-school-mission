@@ -52,3 +52,10 @@
 - Google Cloud, Supabase Studio browser, and Play Console authentication/merchant setup remain external blockers. The Supabase connector works independently and the database remains deployed.
 - Both live flags (Google login and commerce) MUST remain disabled until legal and sandbox acceptance gates are satisfied.
 - See `GOOGLE_ACCOUNT_SETUP.md` for exact account and authorized redirect configuration.
+
+## Google Play API validation — 14 October 2026
+- Cross-checked server purchase payload with official Google Android Publisher ProductPurchaseV2 reference.
+- Enforced quantity == 1 using `productLineItem[0].productOfferDetails.quantity` (correct nested field); deployed verify-play-purchase v2 to Supabase.
+- Security Advisor: no ERROR/WARN findings; INFO for four deliberately private tables.
+- Live configuration flags remain false; real checkout and Google OAuth still require signed-in Google Cloud / Play developer console and account approval.
+- Checkout architecture remains exclusively native Google Play Billing; no external checkout.

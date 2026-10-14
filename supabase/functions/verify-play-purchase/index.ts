@@ -55,7 +55,7 @@ Deno.serve(async(req:Request)=>{
   if(state==="PENDING")return json(409,{error:"payment_pending"});
   if(state!=="PURCHASED")return json(422,{error:"not_purchased"});
   const items=p?.productLineItem;
-  if(!p?.orderId||!Array.isArray(items)||items.length!==1||items[0].productId!==sku||(items[0].quantity??1)!==1) return json(422,{error:"product_mismatch"});
+  if(!p?.orderId||!Array.isArray(items)||items.length!==1||items[0].productId!==sku||(items[0].productOfferDetails?.quantity??1)!==1) return json(422,{error:"product_mismatch"});
   // Binding added by Android BillingFlowParams.setObfuscatedAccountId.
   if(p?.obfuscatedExternalAccountId!==await hash(user.id)) return json(403,{error:"purchaser_mismatch"});
   const {data,error}=await db.rpc("finalize_verified_google_purchase",{p_user_id:user.id,p_product_id:sku,p_token_hash:await hash(token),p_order_reference:p.orderId});
