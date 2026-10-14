@@ -16,7 +16,9 @@
 | GitHub Pages privacy URL | PASS — HTTP 200 |
 | Google Play payments | NOT ENABLED; checkout is explicitly blocked |
 | Google sign-in | NOT ENABLED; provider credentials absent |
-| Hosted Supabase project | NOT CREATED; account authentication required |
+| Hosted Supabase project | CREATED — ap-south-1, connected to Android build |
+| Public Supabase API milestone query | PASS — HTTP 200 |
+| Hosted database security advisors | No WARN/ERROR; four INFO findings for intentionally private tables without client policies |
 | Physical Pixel install, accessibility and gesture QA | NOT RUN — ADB found no connected Pixel |
 | Emulator visual QA | NOT RUN — emulator installation requires a new Android SDK license acceptance |
 | Play Console production approval | NOT SUBMITTED |

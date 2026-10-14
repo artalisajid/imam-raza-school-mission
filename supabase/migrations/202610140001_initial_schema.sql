@@ -129,3 +129,6 @@ insert into public.project_milestones(sort_order,title,summary,status) values
  (5,'School readiness','Teaching staff, curriculum, equipment and registration','not_started'),
  (6,'School opening','Begin Nursery through Class 7 once approved','not_started')
 on conflict (sort_order) do nothing;
+
+-- Hardening: trigger functions must not be executable over public RPC.
+revoke all on function public.create_new_profile() from public, anon, authenticated;

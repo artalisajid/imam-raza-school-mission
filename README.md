@@ -11,7 +11,7 @@ Home → **Explore Stickers & Support** → Sticker Collections → Product Deta
 
 ### Tech stack
 - Android: Kotlin, Jetpack Compose, Material 3, target SDK 36.
-- Backend: Supabase Auth/Postgres/Storage/Edge Functions (migration prepared, hosted project not connected).
+- Backend: Supabase Auth/Postgres/Storage/Edge Functions (project created and read-only public API connected; OAuth and payments not enabled).
 - Payments: Google Play Billing (production integration gated by Play merchant approval, purchase verification and legal review).
 - Public website / privacy: GitHub Pages in `docs/`.
 
@@ -25,8 +25,8 @@ export ANDROID_HOME=/opt/homebrew/share/android-commandlinetools
 App ID: `org.imamraza.schoolmission`. The debug APK will be in `app/build/outputs/apk/debug/`.
 
 ## Connect Supabase
-1. Authenticate Supabase CLI and create a project under the correct organization.
-2. Run `supabase link --project-ref YOUR_PROJECT_REF` then `supabase db push`; review the SQL before applying.
+1. Existing project: zvtvpldmapcelkizrxtg (Fatima Corp, ap-south-1). Public API configured in ignored local.properties.
+2. Initial SQL migration has been applied to the hosted database; for future migrations use the authenticated Supabase project and review SQL before applying.
 3. Add the following to untracked `local.properties`:
 ```properties
 supabase.url=https://YOUR_PROJECT.supabase.co
