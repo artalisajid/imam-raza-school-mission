@@ -13,10 +13,30 @@ android {
         applicationId = "org.imamraza.schoolmission"
         minSdk = 26
         targetSdk = 36
-        versionCode = 3
-        versionName = "0.2.1-dev"
+        versionCode = 4
+        versionName = "0.3.0-internal"
         buildConfigField("String", "SUPABASE_URL", "\""+config("supabase.url")+"\"")
         buildConfigField("String", "SUPABASE_PUBLISHABLE_KEY", "\""+config("supabase.publishable_key")+"\"")
+    }
+    val uploadKeystore = System.getenv("IMAM_UPLOAD_KEYSTORE")
+    val uploadPassword = System.getenv("IMAM_UPLOAD_PASSWORD")
+    signingConfigs {
+        if (!uploadKeystore.isNullOrBlank() && !uploadPassword.isNullOrBlank()) {
+            create("upload") {
+                storeFile = file(uploadKeystore)
+                storePassword = uploadPassword
+                keyAlias = "imam-raza-upload"
+                keyPassword = uploadPassword
+            }
+        }
+    }
+    buildTypes {
+        getByName("release") {
+            if (!uploadKeystore.isNullOrBlank() && !uploadPassword.isNullOrBlank()) {
+                signingConfig = signingConfigs.getByName("upload")
+            }
+            isMinifyEnabled = false
+        }
     }
     buildFeatures { compose = true; buildConfig = true }
     compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
