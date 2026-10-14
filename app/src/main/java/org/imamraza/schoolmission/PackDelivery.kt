@@ -7,6 +7,9 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 object PackDelivery {
+ fun clearCachedPacks(context:Context) {
+  java.io.File(context.cacheDir,"paid-stickers").deleteRecursively()
+ }
  suspend fun downloadOwnedPack(context:Context,sku:String):File?=withContext(Dispatchers.IO) {
   if(MissionContent.packs.none { it.id==sku })return@withContext null
   val jwt=SupporterAuth.accessToken()?:return@withContext null

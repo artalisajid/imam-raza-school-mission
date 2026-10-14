@@ -43,3 +43,12 @@
 6. End-to-end QA with a real logged-in test supporter and licensed Play testing environment.
 
 **Both feature flags remain OFF. No checkout or login is active and no charitable funds are collected.**
+
+## Subsequent work — 14 October 2026, v0.2.1-dev
+- Implemented finance-admin-only `reconcile-play-voids` Edge Function, with Google Play API token and 29-day reconciliation window. Deployed; cannot test real refunds without Google Play publisher credentials.
+- Implemented authenticated Pub/Sub push endpoint `play-rtdn`: verifies Google OIDC signature, issuer, audience and configured service-account identity; fail-closed until configuration. Deployed but no live push subscription linked.
+- Clearing local downloaded sticker ZIP cache on supporter sign-out or successful account deletion.
+- Opened Google Cloud and Play Console websites on the connected Mac. Google Cloud presented an account sign-in page; no accessible authorized developer account. No login information was supplied or collected.
+- Google Cloud, Supabase Studio browser, and Play Console authentication/merchant setup remain external blockers. The Supabase connector works independently and the database remains deployed.
+- Both live flags (Google login and commerce) MUST remain disabled until legal and sandbox acceptance gates are satisfied.
+- See `GOOGLE_ACCOUNT_SETUP.md` for exact account and authorized redirect configuration.

@@ -13,8 +13,8 @@ android {
         applicationId = "org.imamraza.schoolmission"
         minSdk = 26
         targetSdk = 36
-        versionCode = 2
-        versionName = "0.2.0-dev"
+        versionCode = 3
+        versionName = "0.2.1-dev"
         buildConfigField("String", "SUPABASE_URL", "\""+config("supabase.url")+"\"")
         buildConfigField("String", "SUPABASE_PUBLISHABLE_KEY", "\""+config("supabase.publishable_key")+"\"")
     }

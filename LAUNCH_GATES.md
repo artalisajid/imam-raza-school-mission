@@ -50,7 +50,7 @@ Updated 2026-10-14. **This is a development handoff, not legal approval or Googl
 - Google Play generally uses Play Billing for digital products; qualifying tax-exempt donations follow different rules and require eligibility. Sticker purchases must remain real digital-product purchases, not disguised donations.
 - Legal requirements, registration certificates and merchant approval **cannot be fabricated** or marked complete by engineering.
 
-## E. Pixel QA: blocked by device not being connected
+## E. Pixel QA: smoke tests completed; comprehensive QA outstanding
 On the Pixel:
 1. Settings → About Phone → tap Build number seven times to enable Developer options.
 2. Settings → System → Developer options → enable USB debugging.
@@ -63,3 +63,11 @@ On the Pixel:
 ## Current enforced live safety
 `google_signin_enabled=false` and `commerce_enabled=false` in Supabase.
 No live payment collection; no invented school funds, invoices, tax status or authorization.
+
+## F. Google RTDN and refunds backend (developed 14 October 2026)
+Authenticated Pub/Sub push function: `play-rtdn`, checks signed Google OIDC audience/service identity and verifies Google purchase state. Requires `PLAY_PUBSUB_PUSH_AUDIENCE`, `PLAY_PUBSUB_PUSH_EMAIL` and `GOOGLE_PLAY_SERVICE_ACCOUNT_JSON` secrets plus authenticated Cloud Pub/Sub push subscription.
+Finance-admin manual refund reconciler: `reconcile-play-voids`, scans the Google Play Voided Purchases API over the last 29 days and revokes matched entitlements. Requires Play Developer API credentials and an authorized Supabase finance role. The endpoint is JWT-restricted and not callable by regular supporters.
+Neither process has been end-to-end tested with real Google Play transactions. Do not enable commerce or claim refund-compliance readiness yet.
+
+## G. Cloud account login status
+Google Cloud Console opened in Chrome, but redirected to accounts.google.com sign-in. Play Console and Supabase browser settings also require the respective owner account's browser session. No account passwords or MFA tokens have been accessed. User must complete login directly. See `GOOGLE_ACCOUNT_SETUP.md`.

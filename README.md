@@ -32,8 +32,8 @@ App ID: `org.imamraza.schoolmission`. The debug APK will be in `app/build/output
 supabase.url=https://YOUR_PROJECT.supabase.co
 supabase.publishable_key=YOUR_PUBLIC_PUBLISHABLE_KEY
 ```
-4. Configure Google OAuth with a dedicated Android/client configuration and redirect allowlist. Build a secure account-deletion flow before enabling accounts.
-5. Build and deploy verified purchasing only after legal, Play, and merchant readiness. Never embed service credentials in the Android app.
+4. Configure Google Cloud OAuth credentials and Supabase redirect allowlist. The Android PKCE OAuth client and account deletion Edge Function are implemented but awaiting account configuration and live-user tests.
+5. Protected Play purchase verification, private sticker delivery, RTDN and finance-admin voided-purchase reconciliation are deployed but cannot process actual Play orders without Play merchant/API setup and legal approval. Never embed service credentials in the Android app.
 
 ## School scope
 - Karachi; Nursery, KG, Preparatory, Classes 1–7.
@@ -50,12 +50,14 @@ Do not process charity donations without the required legal and payment permissi
 - https://artalisajid.github.io/imam-raza-school-mission/privacy.html
 - https://artalisajid.github.io/imam-raza-school-mission/deletion.html
 
-## Release blockers
-- Supabase hosted project and authorization.
-- Verified organizational/merchant eligibility and any relevant fundraising permissions.
-- Play Console registered in-app products and developer API service account.
-- Google OAuth configuration, account deletion and secure support channel.
-- Real sticker asset packs + proper license/fulfillment (current UI uses previews).
-- Real device QA, Play Billing sandbox, full accessibility, Play Console privacy and Data Safety.
+## Release blockers and status
+- Supabase project and migrations: **complete**, Fatima Corp / ap-south-1. Login and commerce both OFF.
+- Original art: **62 sticker PNGs complete**, three licensed ZIP archives stored in private Supabase Storage (not in GitHub).
+- Android app build: **passed**; smoke tested on a physical Pixel 7 Pro. Version 0.2.1-dev is installed.
+- Google OAuth: native browser/PKCE client implemented, but browser Google account sign-in and Google Cloud OAuth credentials missing.
+- Google Play: store client and protected backend implemented, but Play Console developer/merchant/products and approved service account absent; no real purchase tested.
+- Refunds: secured RTDN and finance reconciliation functions deployed, but Google Pub/Sub subscription, credentials and sandbox testing pending.
+- Legal fundraising/charity registration and payment claims: authorization or counsel review outstanding; not a software task.
+- Additional tests: end-to-end login/billing/refund, accessibility, finance audits and real release signing.
 
-See `ARCHITECTURE.md` and `QA.md`.
+See `ARCHITECTURE.md`, `GOOGLE_ACCOUNT_SETUP.md`, `LAUNCH_GATES.md` and `QA.md`.

@@ -36,7 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
      else onMessage("Google sign-in needs an OAuth client ID, secret and redirect configuration. No login data is collected yet.")
     })
    }else{
-    OutlineButton("Sign out",onClick={SupporterAuth.logout();owned=emptyList()})
+    OutlineButton("Sign out",onClick={PackDelivery.clearCachedPacks(context);SupporterAuth.logout();owned=emptyList()})
    }
    SupporterAuth.errorMessage?.let { Text(it,color=MaterialTheme.colorScheme.error,fontSize=12.sp) }
    if(SupporterAuth.pending) LinearProgressIndicator(Modifier.fillMaxWidth())
@@ -88,6 +88,7 @@ import androidx.compose.ui.text.font.FontWeight
    processing=true
    scope.launch {
     val ok=SupporterData.deleteAccount()
+    if(ok) PackDelivery.clearCachedPacks(context)
     processing=false;showDelete=false
     onMessage(if(ok)"Your account was deleted." else "Deletion could not be completed. Please contact support.")
    }
