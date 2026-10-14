@@ -96,3 +96,17 @@ val AccentMint = Color(0xFFDDEEE2)
         }
     }
 }
+
+@Composable fun StickerArt(pack:StickerPack,modifier:Modifier=Modifier,large:Boolean=false) {
+    val picture=when(pack.id) {
+        "little_learners" -> R.drawable.preview_little_learners
+        "seeds_of_knowledge" -> R.drawable.preview_seeds_of_knowledge
+        else -> R.drawable.preview_bright_minds
+    }
+    androidx.compose.foundation.Image(
+        painter=androidx.compose.ui.res.painterResource(picture),
+        contentDescription=pack.name+" illustration",
+        contentScale=androidx.compose.ui.layout.ContentScale.Crop,
+        modifier=modifier.clip(RoundedCornerShape(16.dp))
+    )
+}

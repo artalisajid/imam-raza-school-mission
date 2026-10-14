@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.*
             Text("Imam Raza (a.s.)",color=Color.White,fontFamily=FontFamily.Serif,fontWeight=FontWeight.Bold,fontSize=18.sp)
             Text("SCHOOL MISSION • KARACHI",color=Gold,fontSize=10.sp,letterSpacing=1.sp)
         }
-        Icon(Icons.Default.VerifiedUser,null,tint=Gold)
+        Icon(Icons.Default.Info,null,tint=Gold)
     }
 }
 @Composable fun BottomNavigation(selected:Int,onTab:(Int)->Unit) {
@@ -163,7 +163,7 @@ import androidx.compose.ui.unit.*
         MissionContent.packs.forEach { pack ->
             SurfaceCard(Modifier.clickable { onSelect(pack.id) }) {
                 Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(14.dp)) {
-                    StickerPreview(pack,Modifier.size(112.dp))
+                    StickerArt(pack,Modifier.size(112.dp))
                     Column(Modifier.weight(1f),verticalArrangement=Arrangement.spacedBy(6.dp)) {
                         Text(pack.name,fontWeight=FontWeight.Bold,fontSize=18.sp,color=Forest)
                         Text(pack.tagline,color=Muted,fontSize=12.sp)
@@ -183,7 +183,7 @@ import androidx.compose.ui.unit.*
 @Composable fun PackDetailScreen(pack:StickerPack,onBack:()->Unit,onBuy:()->Unit) {
     ScrollPage {
         TextButton(onClick=onBack){ Icon(Icons.Default.ArrowBack,null);Spacer(Modifier.width(6.dp));Text("All collections",color=Forest)}
-        StickerPreview(pack,Modifier.fillMaxWidth().height(226.dp),large=true)
+        StickerArt(pack,Modifier.fillMaxWidth().height(226.dp),large=true)
         PageTitle(pack.name,pack.tagline)
         Tag(pack.items.size.toString()+" digital stickers")
         Text(pack.description,color=Muted,fontSize=14.sp,lineHeight=21.sp)

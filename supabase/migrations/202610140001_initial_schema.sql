@@ -101,3 +101,31 @@ revoke insert,update,delete on public.sticker_products,public.purchases,public.p
 revoke all on public.purchase_tokens,public.financial_ledger,public.admin_memberships,public.audit_events from anon,authenticated;
 create index if not exists idx_purchases_user_date on public.purchases(user_id,purchased_at desc);
 create index if not exists idx_updates_published_date on public.project_updates(published,created_at desc);
+
+-- Automatic profile after OAuth sign-up, without allowing users to create others' profiles.
+create or replace function public.create_new_profile()
+returns trigger language plpgsql security definer set search_path=''
+as $$
+begin
+ insert into public.profiles(id) values(new.id) on conflict do nothing;
+ return new;
+end;
+$$;
+drop trigger if exists on_auth_user_created_mission on auth.users;
+create trigger on_auth_user_created_mission after insert on auth.users
+for each row execute function public.create_new_profile();
+
+insert into public.sticker_products(id,title,description,play_product_id,sticker_count,published) values
+ ('little_learners','Little Learners','Educational illustrations','little_learners',12,false),
+ ('seeds_of_knowledge','Seeds of Knowledge','Nature and learning','seeds_of_knowledge',20,false),
+ ('bright_minds','Bright Minds','Science and creativity','bright_minds',30,false)
+on conflict (id) do nothing;
+
+insert into public.project_milestones(sort_order,title,summary,status) values
+ (1,'Legal registration','Founding organization, governance and permissions','not_started'),
+ (2,'Land acquisition','Karachi site feasibility, land use and registered purchase','not_started'),
+ (3,'Design and approvals','Professional plans and regulatory permissions','not_started'),
+ (4,'Construction','Safe and accessible educational facilities','not_started'),
+ (5,'School readiness','Teaching staff, curriculum, equipment and registration','not_started'),
+ (6,'School opening','Begin Nursery through Class 7 once approved','not_started')
+on conflict (sort_order) do nothing;
